@@ -1,3 +1,9 @@
+"""This file runs on Replit"""
+"""The code might give error as I changed the sender's email password, feel free to use your own email id and password or run the code without using send_email() function"""
+
+import smtplib #for emailing
+import os
+import json
 from selenium import webdriver
 import time
 from selenium.webdriver.chrome.options import Options
@@ -43,6 +49,32 @@ def parse_video(video):
     'description': description
   }
 
+def send_email(body):
+  try:
+    server_ssl = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+    server_ssl.ehlo()   
+
+    SENDER_EMAIL = 'abcdefghpc18@gmail.com'
+    RECEIVER_EMAIL = 'priyankachhattani17@gmail.com'
+    SENDER_PASSWORD = os.environ['PASSWORD']f
+    
+    subject = 'YouTube Trending Videos'
+
+    email_text = f"""
+    From: {SENDER_EMAIL}
+    To: {RECEIVER_EMAIL}
+    Subject: {subject}
+
+    {body}
+    """
+
+    server_ssl.login(SENDER_EMAIL,SENDER_PASSWORD)
+
+    server_ssl.sendmail(SENDER_EMAIL, RECEIVER_EMAIL, email_text)
+    server_ssl.close()
+
+  except:
+      print('Something went wrong...')
 
 
 if __name__ == "__main__":
@@ -62,3 +94,8 @@ if __name__ == "__main__":
   videos_df = pd.DataFrame(videos_data)
   print(videos_df)
   videos_df.to_csv('trending.csv', index=None)
+  print("Send the results over email")
+  body = json.dumps(videos_data, indent=2)
+  send_email(body)
+
+  print('Finished.')
