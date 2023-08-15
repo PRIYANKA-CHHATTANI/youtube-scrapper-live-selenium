@@ -5,8 +5,8 @@ Tip: You can use AWS lambda and Cloudwatch to set up recurring job and email the
 
 #Project details
 
--Extract information about trending videos using Selenium
+-Extracted information about trending videos using Selenium
 
--create a CSV of results named 'Trending.csv'
+-Created a CSV of results named 'Trending.csv'
 
--send an email containg the information to the target recipients.
+-Implemented an email functionality to effortlessly send the data to target recipients
